@@ -1,5 +1,7 @@
 # coding=utf-8
 
+import numpy as np
+
 # File format
 # The first line of the input file contains the following integer numbers separated by single spaces:
 # ● R – number of rows of the grid ( 1 ≤ R ≤ 1 0000)
@@ -34,6 +36,7 @@ class RideData:
         self.finish_time = finish_time
         self.original_index = original_index
 
+
 # rides is an array of RideData
 class Data:
     def __init__(self, row_count, column_count, vehicle_count, start_on_time_bonus, step_count, rides):
@@ -47,18 +50,17 @@ class Data:
 
 # position is a Coord
 class Vehicle:
-    # of PREVIOUSLY COMPLETED RIDES
-    rideHistory = []
 
-    # no ride right at the start
-    current_ride = None
 
-    # status is occupied, unassigned or assigned.
+    def __init__(self):
+        self.position = Coord(0, 0)
+        # status is occupied, unassigned or assigned.
+        self.status = "unassigned"
 
-    def __init__(self, position, status):
-        self.position = position
-        self.status = status
-
+        # of PREVIOUSLY COMPLETED RIDES
+        rideHistory = []
+        # no ride right at the start
+        current_ride = None
 
     def updateStatus(self):
         if self.current_ride:
@@ -68,8 +70,26 @@ class Vehicle:
                 self.status = "unassigned"
                 self.current_ride = None
 
-            # otherwise dont change
+            # otherwise don't change
         else:
             self.status = "unassigned"
+
+    def move(self):
+        if self.current_ride is not null:
+            destination = None
+            if self.status == "assigned":
+                destination = self.current_ride.start
+            elif self.status == "occupied":
+                destination = self.current_ride.end
+            else:
+                assert False
+
+        dx = destination.x - self.position.x
+        dy = destination.y - self.position.y
+
+        if abs(dx) > 0:
+            self.position.x += np.sign(dx)
+        else:
+            self.position.y += np.sign(dy)
 
 
