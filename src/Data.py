@@ -38,3 +38,10 @@ class Data:
         self.vehicle_count = vehicle_count
         self.start_on_time_bonus = start_on_time_bonus
         self.step_count = step_count
+
+
+# position is a Coord
+class Vehicle:
+    def __init__(self, position, current_ride):
+        self.position = position
+        self.current_ride = current_ride
