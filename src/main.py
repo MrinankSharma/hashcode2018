@@ -18,11 +18,14 @@ def load_data():
     # TO DO - LOAD DATA
     pass
 
+
 def cull_rides():
     pass
 
+
 def allocate_rides_to_cars():
     pass
+
 
 # mutates cars
 def update_positions(cars):
@@ -46,6 +49,7 @@ def run_simulation():
         update_positions(cars)
         # increment timestep
         timestep+=1
+
 
 if __name__ == "__main__":
     load_data()
