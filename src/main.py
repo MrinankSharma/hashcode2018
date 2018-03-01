@@ -89,6 +89,10 @@ def update_positions(cars):
         elif car.assigned_to is not None:
             car.position = move_one_towards(car.position, car.assigned_to.start)
 
+def updateStatuses(cars):
+    for car in cars:
+        car.updateStatus()
+
 
 def run_simulation():
     timestep = 0
