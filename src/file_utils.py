@@ -30,7 +30,8 @@ def read_data(file_name):
         rides = []
 
         for index in range(0, ride_count):
-            rides.append(parse_ride(next(f), index))
+            object = parse_ride(next(f), index)
+            rides.append(object)
 
         assert ride_count == len(rides)
 

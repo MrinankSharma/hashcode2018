@@ -59,6 +59,7 @@ def allocate_rides_to_cars(cars, rides, timestep):
     # for each sorted route
     # assign the nearest unassigned car for each route, update the flag
     for route in rides:
+        print(route)
         closestCar = getClosestCar(route, cars)
 
 
@@ -75,6 +76,7 @@ def getClosestCar(route, cars):
                 
     closestCar.current_ride = route
     closestCar.status = "assigned"
+    print("Assigned car  to route:" + str(route.original_index))
     return closestCar
 
 # mutates cars
@@ -96,11 +98,11 @@ def run_simulation():
         cars.append(Vehicle())
     max_t = original_data.step_count
     timestep = 0
-    shouldTerminate = False
 
     while timestep<max_t:
         # remove impossible rides (doesn't mutate input)
         rides = cull_rides(routes, timestep)
+
         # generate a list of free cars (doesn't mutate input)
         available_cars_lol = available_cars(cars)
         # allocate the free cars
@@ -111,7 +113,7 @@ def run_simulation():
         # increment timestep
         timestep+=1
 
-    write_data("wow-this-wont-work.lemon", cars)
+    write_data("wow-this-wont-work.lemon.txt", cars)
 
 
 if __name__ == "__main__":

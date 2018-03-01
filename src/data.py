@@ -42,6 +42,9 @@ class RideData:
         self.finish_time = finish_time
         self.original_index = original_index
 
+    def __str__(self):
+        return self.start.__str__()
+
 
 # rides is an array of RideData
 class Data:
