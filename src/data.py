@@ -58,4 +58,16 @@ class Vehicle:
         self.position = position
         self.status
 
+    def updateStatus(self):
+        if self.current_ride:
+            if self.position == self.current_ride.start:
+                self.status = "occupied"
+            elif self.position == self.current_ride.end:
+                self.status = "unassigned"
+                self.current_ride = None
+
+            # otherwise dont change
+        else:
+            self.status = "unassigned"
+
 
