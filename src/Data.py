@@ -53,4 +53,3 @@ class Vehicle:
 
     def __init__(self, position):
         self.position = position
-        self.current_ride = current_ride
