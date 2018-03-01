@@ -6,8 +6,20 @@ def load_data():
     # TO DO - LOAD DATA
     pass
 
-def cull_rides():
-    pass
+def cull_rides(rides, timestep):
+    # Expecting to receive a list of rides. Returns rides for which the start times hasn't passed
+    culled_rides = []
+    for ride in rides:
+        if ride.start_time <= timestep:
+            culled_rides.append(ride)
+    return culled_rides
+
+def available_cars(vehicles):
+    available_cars = []
+    for vehicle in vehicles:
+        if not vehicle.current_ride:
+            available_cars.append(vehicle)
+    return available_cars
 
 def allocate_rides_to_cars():
     pass
@@ -19,8 +31,10 @@ def run_simulation():
     timestep = 0
 
     while True:
-        # remove impossible rides
+        # remove impossible rides (doesn't mutate input)
         cull_rides()
+        # generate a list of free cars (doesn't mutate input)
+        available_cars()
         # allocate the free cars
         allocate_rides_to_cars()
         # update positions
