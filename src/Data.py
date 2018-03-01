@@ -25,23 +25,32 @@ class Coord:
 
 
 class RideData:
-    def __init__(self, start, end, start_time, finish_time):
+    def __init__(self, start, end, start_time, finish_time, original_index):
         self.start = start
         self.end = end
         self.start_time = start_time
         self.finish_time = finish_time
+        self.original_index = original_index
 
+# rides is an array of RideData
 class Data:
-    def __init__(self, row_count, column_count, vehicle_count, start_on_time_bonus, step_count):
+    def __init__(self, row_count, column_count, vehicle_count, start_on_time_bonus, step_count, rides):
         self.row_count = row_count
         self.column_count = column_count
         self.vehicle_count = vehicle_count
         self.start_on_time_bonus = start_on_time_bonus
         self.step_count = step_count
+        self.rides = rides
 
 
 # position is a Coord
 class Vehicle:
-    def __init__(self, position, current_ride):
+    # of PREVIOUSLY COMPLETED RIDES
+    rideHistory = []
+
+    # no ride right at the start
+    current_ride = None
+
+    def __init__(self, position):
         self.position = position
         self.current_ride = current_ride
