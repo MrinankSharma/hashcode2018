@@ -19,6 +19,7 @@ def available_cars(vehicles):
     for vehicle in vehicles:
         if vehicle.status != "occupied":
             available_cars.append(vehicle)
+            vehicle.status = "unassigned"
     return available_cars
 
 def allocate_rides_to_cars():
