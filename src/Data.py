@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # File format
 # The first line of the input file contains the following integer numbers separated by single spaces:
 # ● R – number of rows of the grid ( 1 ≤ R ≤ 1 0000)
