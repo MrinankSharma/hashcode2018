@@ -45,9 +45,14 @@ def read_data(file_name):
         rides=rides,
     )
 
-
 def write_data(file_name, data):
-    str = "the output, RAPHI will create this"
+    '''Write the output data to file, assuming that we have all the vehicles in a list'''
+    str = []
+    for vehicle in data:
+        str += generate_line(vehicle)
+    # Remove final newline
+    str = str[:-1]
+    ''.join(str)
 
     try:
         os.mkdir('../output')
@@ -58,6 +63,18 @@ def write_data(file_name, data):
         f.write(str)
 
     f.close()
+
+def generate_line(vehicle):
+    '''Generate a line of the output string, applicable to one vehicle'''
+    rideHistory = vehicle.rideHistory
+    str = [str(len(rideHistory))," "]
+    for ride in vehicle.rideHistory:
+        str.append(str(ride.original_index))
+        str.append(" ")
+    # Remove final space and add a newline
+    str = str[:-1]
+    str.append("\n")
+    return str
 
 data = read_data("a_example.in")
 write_data("Hia.txt", data)
