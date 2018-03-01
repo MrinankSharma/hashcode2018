@@ -8,16 +8,16 @@ def load_data():
 
 def cull_rides(rides, timestep):
     # Expecting to receive a list of rides. Returns rides for which the start times hasn't passed
-    culled_rides = []
+    free_rides = []
     for ride in rides:
-        if ride.start_time <= timestep:
-            culled_rides.append(ride)
-    return culled_rides
+        if ride.start_time > timestep:
+            free_rides.append(ride)
+    return free_rides
 
 def available_cars(vehicles):
     available_cars = []
     for vehicle in vehicles:
-        if not vehicle.current_ride:
+        if vehicle.status != "occupied":
             available_cars.append(vehicle)
     return available_cars
 
