@@ -1,4 +1,3 @@
-from data import Coord
 from src.file_utils import read_data, write_data
 from src.utilities import compute_l1_norm, sort_rides_by_priority
 import numpy as np
@@ -8,6 +7,7 @@ original_data = None
 working_data = None
 
 def load_data(filename):
+    global original_data
     original_data = read_data(filename)
   
 # RAFI
@@ -53,13 +53,12 @@ def getClosestCar(route, cars):
 
 # MRINANK
 def allocate_rides_to_cars(cars, rides, timestep):
-    # get assigned and unassigned cars, clear flags (set all to unassigned)
-    cars = cull_rides(cars)
+    # get assigned and unassigned cars, clear flags (set all to unassigned
     # get sorted routes
-    sorted_routes = sort_rides_by_priority(rides, timestep)
+    sort_rides_by_priority(rides, timestep)
     # for each sorted route
     # assign the nearest unassigned car for each route, update the flag
-    for route in sorted_routes:
+    for route in rides:
         closestCar = getClosestCar(route, cars)
 
 
@@ -81,10 +80,7 @@ def getClosestCar(route, cars):
 # mutates cars
 def update_positions(cars):
     for car in cars:
-        if car.occupied_by is not None:
-            car.position = move_one_towards(car.position, car.occupied_by.end)
-        elif car.assigned_to is not None:
-            car.position = move_one_towards(car.position, car.assigned_to.start)
+        car.move()
 
 def updateStatuses(cars):
     for car in cars:
@@ -93,21 +89,22 @@ def updateStatuses(cars):
 
 def run_simulation():
     global original_data
+
     cars=[]
     routes = original_data.rides
-    for i in original_data.vehicle_count:
+    for i in range(original_data.vehicle_count):
         cars.append(Vehicle())
     max_t = original_data.step_count
     timestep = 0
     shouldTerminate = False
 
-    while timestep<max_t
+    while timestep<max_t:
         # remove impossible rides (doesn't mutate input)
-        rides = cull_rides()
+        rides = cull_rides(routes, timestep)
         # generate a list of free cars (doesn't mutate input)
-        available_cars = available_cars(cars)
+        available_cars_lol = available_cars(cars)
         # allocate the free cars
-        free_cars = allocate_rides_to_cars(available_cars, rides, timestep)
+        free_cars = allocate_rides_to_cars(available_cars_lol, rides, timestep)
         # update positions
         update_positions(cars)
         updateStatuses(cars)
@@ -118,5 +115,5 @@ def run_simulation():
 
 
 if __name__ == "__main__":
-    load_data("data/a_example.in")
+    load_data("a_example.in")
     run_simulation()

@@ -58,9 +58,9 @@ class Vehicle:
         self.status = "unassigned"
 
         # of PREVIOUSLY COMPLETED RIDES
-        rideHistory = []
+        self.rideHistory = []
         # no ride right at the start
-        current_ride = None
+        self.current_ride = None
 
     def updateStatus(self):
         if self.current_ride:
@@ -75,7 +75,7 @@ class Vehicle:
             self.status = "unassigned"
 
     def move(self):
-        if self.current_ride is not null:
+        if self.current_ride is not None:
             destination = None
             if self.status == "assigned":
                 destination = self.current_ride.start
@@ -84,12 +84,12 @@ class Vehicle:
             else:
                 assert False
 
-        dx = destination.x - self.position.x
-        dy = destination.y - self.position.y
+            dx = destination.x - self.position.x
+            dy = destination.y - self.position.y
 
-        if abs(dx) > 0:
-            self.position.x += np.sign(dx)
-        else:
-            self.position.y += np.sign(dy)
+            if abs(dx) > 0:
+                self.position.x += np.sign(dx)
+            else:
+                self.position.y += np.sign(dy)
 
 

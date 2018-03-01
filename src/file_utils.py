@@ -47,12 +47,12 @@ def read_data(file_name):
 
 def write_data(file_name, data):
     '''Write the output data to file, assuming that we have all the vehicles in a list'''
-    str = []
+    myStr = []
     for vehicle in data:
-        str += generate_line(vehicle)
+        myStr += generate_line(vehicle)
     # Remove final newline
-    str = str[:-1]
-    ''.join(str)
+    myStr = myStr[:-1]
+    myStr = ''.join(myStr)
 
     try:
         os.mkdir('../output')
@@ -60,21 +60,18 @@ def write_data(file_name, data):
         pass
 
     with open(os.path.join('..', 'output', file_name), 'w') as f:
-        f.write(str)
+        f.write(myStr)
 
     f.close()
 
 def generate_line(vehicle):
     '''Generate a line of the output string, applicable to one vehicle'''
     rideHistory = vehicle.rideHistory
-    str = [str(len(rideHistory))," "]
+    string = [str(len(rideHistory))," "]
     for ride in vehicle.rideHistory:
-        str.append(str(ride.original_index))
-        str.append(" ")
+        string.append(str(ride.original_index))
+        string.append(" ")
     # Remove final space and add a newline
-    str = str[:-1]
-    str.append("\n")
-    return str
-
-data = read_data("a_example.in")
-write_data("Hia.txt", data)
+    string = string[:-1]
+    string.append("\n")
+    return string
