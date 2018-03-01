@@ -53,7 +53,9 @@ class Vehicle:
     # no ride right at the start
     current_ride = None
 
-    def __init__(self, position):
+
+    def __init__(self, position, status):
         self.position = position
+        self.status
 
 
