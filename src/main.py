@@ -1,5 +1,5 @@
 from data import Coord
-from src.file_utils import read_data
+from src.file_utils import read_data, write_data
 from src.utilities import compute_l1_norm, sort_rides_by_priority
 import numpy as np
 from src.data import Vehicle
@@ -97,14 +97,15 @@ def run_simulation():
     routes = original_data.rides
     for i in original_data.vehicle_count:
         cars.append(Vehicle())
-
+    max_t = original_data.step_count
     timestep = 0
+    shouldTerminate = False
 
-    while True:
+    while timestep<max_t
         # remove impossible rides (doesn't mutate input)
         rides = cull_rides()
         # generate a list of free cars (doesn't mutate input)
-        available_cars = available_cars()
+        available_cars = available_cars(cars)
         # allocate the free cars
         free_cars = allocate_rides_to_cars(available_cars, rides, timestep)
         # update positions
@@ -112,6 +113,8 @@ def run_simulation():
         updateStatuses(cars)
         # increment timestep
         timestep+=1
+
+    write_data("wow-this-wont-work.lemon", cars)
 
 
 if __name__ == "__main__":
