@@ -1,6 +1,6 @@
 # coding=utf-8
 import os.path
-from Data import Data, RideData, Coord
+from data import Data, RideData, Coord
 
 
 def parse_ride(ride, index):
@@ -44,3 +44,20 @@ def read_data(file_name):
         step_count=step_count,
         rides=rides,
     )
+
+
+def write_data(file_name, data):
+    str = "the output, RAPHI will create this"
+
+    try:
+        os.mkdir('../output')
+    except OSError:
+        pass
+
+    with open(os.path.join('..', 'output', file_name), 'w') as f:
+        f.write(str)
+
+    f.close()
+
+data = read_data("a_example.in")
+write_data("Hia.txt", data)
