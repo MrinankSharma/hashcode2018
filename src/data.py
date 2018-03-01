@@ -43,7 +43,7 @@ class RideData:
         self.original_index = original_index
 
     def __str__(self):
-        return self.start.__str__()
+        return f"from: {self.start}, to: {self.end}"
 
 
 # rides is an array of RideData
