@@ -1,4 +1,6 @@
 from src.file_utils import read_data
+from src.utilities import compute_l1_norm
+
 original_data = None
 working_data = None
 
@@ -11,12 +13,31 @@ def cull_rides():
     pass
 
 # MRINANK
-def allocate_rides_to_cars():
+def allocate_rides_to_cars(cars, rides, timestep):
     # get assigned and unassigned cars, clear flags (set all to unassigned)
+    cars = get_available_cars(cars)
     # get sorted routes
+    sorted_routes = sort_rides_by_priority(rides, timestep)
     # for each sorted route
     # assign the nearest unassigned car for each route, update the flag
-    pass
+    for route in sorted_routes:
+        closestCar = getClosestCar(route)
+
+
+
+def getClosestCar(route, cars):
+    closestCar = None
+    closest_distance = 1000
+    for car in cars:
+        if car.status == "unassigned":
+            d = compute_l1_norm(car.position , route.start)
+            if d<closest_distance:
+                closest_distance = d
+                closestCar = car
+                
+    closestCar.current_ride = route
+    closestCar.status = "assigned"
+    return closestCar
 
 # Mrinank
 def update_status():

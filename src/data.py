@@ -53,9 +53,11 @@ class Vehicle:
     # no ride right at the start
     current_ride = None
 
+    # status is occupied, unassigned or assigned.
 
     def __init__(self, position, status):
         self.position = position
-        self.status
+        self.status = status
+
 
 
