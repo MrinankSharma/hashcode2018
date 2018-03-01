@@ -18,7 +18,7 @@
 # ○ note that f can be equal to T – this makes the latest finish equal to the end of the simulation
 
 
-class Coor:
+class Coord:
     def __init__(self, x, y):
         self.x = x
         self.y = y
