@@ -8,7 +8,7 @@ def ride_length(ride):
 
 def get_priority(ride, t):
     '''Calculate the priorty for a ride, given the current timestep'''
-    bonus = B if ride.t < t else 0
+    bonus = B if ride.start_time < t else 0
     return bonus + ride_length(ride)
 
 def sort_rides_by_priority(rides, t):
