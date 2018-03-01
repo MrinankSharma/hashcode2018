@@ -1,7 +1,8 @@
 from data import Coord
 from src.file_utils import read_data
-from src.utilities import compute_l1_norm
+from src.utilities import compute_l1_norm, sort_rides_by_priority
 import numpy as np
+from src.data import Vehicle
 
 original_data = None
 working_data = None
@@ -28,7 +29,7 @@ def available_cars(vehicles):
 # MRINANK
 def allocate_rides_to_cars(cars, rides, timestep):
     # get assigned and unassigned cars, clear flags (set all to unassigned)
-    cars = get_available_cars(cars)
+    cars = cull_rides(cars)
     # get sorted routes
     sorted_routes = sort_rides_by_priority(rides, timestep)
     # for each sorted route
@@ -50,20 +51,16 @@ def getClosestCar(route, cars):
     closestCar.status = "assigned"
     return closestCar
 
-# Mrinank
-def update_status():
-    pass
-  
 # MRINANK
 def allocate_rides_to_cars(cars, rides, timestep):
     # get assigned and unassigned cars, clear flags (set all to unassigned)
-    cars = get_available_cars(cars)
+    cars = cull_rides(cars)
     # get sorted routes
     sorted_routes = sort_rides_by_priority(rides, timestep)
     # for each sorted route
     # assign the nearest unassigned car for each route, update the flag
     for route in sorted_routes:
-        closestCar = getClosestCar(route)
+        closestCar = getClosestCar(route, cars)
 
 
 
@@ -95,17 +92,24 @@ def updateStatuses(cars):
 
 
 def run_simulation():
+    global original_data
+    cars=[]
+    routes = original_data.rides
+    for i in original_data.vehicle_count:
+        cars.append(Vehicle())
+
     timestep = 0
-    cars = []
 
     while True:
         # remove impossible rides (doesn't mutate input)
-        cull_rides()
+        rides = cull_rides()
         # generate a list of free cars (doesn't mutate input)
-        available_cars()
+        available_cars = available_cars()
         # allocate the free cars
-        free_cars = allocate_rides_to_cars(cars)
+        free_cars = allocate_rides_to_cars(available_cars, rides, timestep)
         # update positions
+        update_positions(cars)
+        updateStatuses(cars)
         # increment timestep
         timestep+=1
 
